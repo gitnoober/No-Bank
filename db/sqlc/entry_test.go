@@ -66,5 +66,4 @@ func TestDeleteEntry(t *testing.T) {
 	require.Error(t, err)
 	require.EqualError(t, err, sql.ErrNoRows.Error())
 	require.Empty(t, entry2)
-
 }

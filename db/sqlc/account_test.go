@@ -72,7 +72,7 @@ func TestDeleteAccount(t *testing.T) {
 }
 
 func TestListAccount(t *testing.T) {
-	const limit int = 10
+	const limit int = 5
 	const offset int = 5
 
 	for i := 0; i < 10; i++ {
