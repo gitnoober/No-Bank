@@ -12,17 +12,16 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-const (
-	dbDriver = "postgres"
-	dbSource = "postgresql://root:secret@localhost:5432/nobank?sslmode=disable"
-)
-
 var testQueries *Queries
 var testDB *sql.DB
 
 func TestMain(m *testing.M) {
+	config, config_err := utils.LoadConfig("../..")
+	if config_err != nil {
+		log.Fatal("cannot load config:", config_err)
+	}
 	var err error
-	testDB, err = sql.Open(dbDriver, dbSource)
+	testDB, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("cannot connect to db:", err)
 	}
