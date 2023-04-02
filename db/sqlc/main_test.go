@@ -6,7 +6,9 @@ import (
 	"log"
 	"os"
 	"testing"
+	"time"
 
+	// db "github.com/gitnoober/No-Bank/db/sqlc"
 	"github.com/gitnoober/No-Bank/utils"
 	_ "github.com/lib/pq"
 	"github.com/stretchr/testify/require"
@@ -14,6 +16,16 @@ import (
 
 var testQueries *Queries
 var testDB *sql.DB
+
+func newTestServer(t *testing.T, store db.Store) *Server {
+	config := utils.Config{
+		TokenSymmetricKey:   utils.RandomString(32),
+		AccessTokenDuration: time.Minute,
+	}
+	server, err := NewServer(config, store)
+	require.NoError(t, err)
+	return server
+}
 
 func TestMain(m *testing.M) {
 	config, config_err := utils.LoadConfig("../..")
